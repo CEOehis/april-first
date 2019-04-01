@@ -6,7 +6,8 @@ import './App.css';
 class App extends Component {
   state = {
     loading: true,
-    data: {}
+    data: {},
+    fools: 0,
   }
 
   async componentDidMount() {
@@ -18,9 +19,12 @@ class App extends Component {
         ...data
       });
 
+      const userCollection = await db.collection('users').get()
+
       this.setState({
         loading: false,
-        data
+        data,
+        fools: userCollection.size
       });
     } catch (e) {
       this.setState({
@@ -30,7 +34,7 @@ class App extends Component {
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, fools } = this.state;
     if(loading) {
       return (
         <main className="app container">
@@ -43,8 +47,9 @@ class App extends Component {
       <>
         <main className="app container">
           <h1 className="center">Happy April Fool's Day</h1>
+          {fools ? <p className="count">{fools} April fools and counting</p> : ''}
         </main>
-        <p className="footer">Made with ❤ by cy</p>
+        <p className="footer">Made with <strike>sinister motives</strike> ❤ by <a href="https://ekohordan.com" target="_blank" rel="noopener noreferrer">me</a></p>
       </>
     );
   }
