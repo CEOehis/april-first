@@ -11,13 +11,17 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    const tracked = window.localStorage.getItem('april-first');
     try {
       const apiUrl = 'https://cors-anywhere.herokuapp.com/https://shielded-hamlet-17516.herokuapp.com/api/whoami';
       const res = await fetch(apiUrl);
       const data = await res.json();
-      await db.collection('users').doc().set({
-        ...data
-      });
+      if (!tracked) {
+        window.localStorage.setItem('april-first', data);
+        await db.collection('users').doc().set({
+          ...data
+        });
+      }
 
       const userCollection = await db.collection('users').get()
 
