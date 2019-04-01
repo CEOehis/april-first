@@ -15,7 +15,7 @@ class App extends Component {
       const apiUrl = 'https://cors-anywhere.herokuapp.com/https://shielded-hamlet-17516.herokuapp.com/api/whoami';
       const res = await fetch(apiUrl);
       const data = await res.json();
-      await db.collection('users').doc(data.ipaddress).set({
+      await db.collection('users').doc().set({
         ...data
       });
 
@@ -49,7 +49,7 @@ class App extends Component {
           <h1 className="center">Happy April Fool's Day</h1>
           {fools ? <p className="count">{fools} April fools and counting</p> : ''}
         </main>
-        <p className="footer">Made with <strike>sinister motives</strike> ❤ by <a href="https://ekohordan.com" target="_blank" rel="noopener noreferrer">me</a></p>
+        <p className="footer">Made with <strike>sinister motives</strike> ❤ by <a href="https://blog.ekohordan.com" target="_blank" rel="noopener noreferrer">me</a></p>
       </>
     );
   }
